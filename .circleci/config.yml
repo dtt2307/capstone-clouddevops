@@ -228,9 +228,9 @@ workflows:
   default:
     jobs:
       - test-build
-     # - upload-docker:
-     #    requires:
-     #       - test-build
+      - upload-docker:
+          requires:
+            - test-build
         #  filters:
         #    branches:
         #      only: [ master ]
@@ -248,4 +248,5 @@ workflows:
      # - deploy-docker:
      #     requires:
      #       - configure-cluster
+
 
