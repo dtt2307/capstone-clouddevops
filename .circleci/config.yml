@@ -56,9 +56,9 @@ jobs:
           name: Upload Docker to Dockerhub
           command: |
             echo "Docker ID and Image: $DOCKER_IMAGE_NAME"
-            docker login -u="$DOCKERHUB_USERNAME" -p="$DOCKERHUB_PASSWORD"
-            docker tag $DOCKER_IMAGE_NAME $DOCKERHUB_USERNAME/$DOCKER_IMAGE_NAME:$CIRCLE_WORKFLOW_ID
-            docker push $DOCKERHUB_USERNAME/$DOCKER_IMAGE_NAME:$CIRCLE_WORKFLOW_ID
+            docker login -u="$DOCKER_HUB_USER" -p="$DOCKER_HUB_PASSWD"
+            docker tag $DOCKER_IMAGE_NAME $DOCKER_HUB_USER/$DOCKER_IMAGE_NAME:$CIRCLE_WORKFLOW_ID
+            docker push $DOCKER_HUB_USER/$DOCKER_IMAGE_NAME:$CIRCLE_WORKFLOW_ID
 
   deploy-infrastructure:
     docker:
@@ -248,5 +248,6 @@ workflows:
      # - deploy-docker:
      #     requires:
      #       - configure-cluster
+
 
 
