@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   test-build:
     docker:
-      - image: cimg/python:3.10.10
+      - image: python:3.10.10
 
     steps:
       - checkout
