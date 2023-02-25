@@ -1,5 +1,4 @@
 ---
----
 - name: "Install tar"
   shell: yum install tar
 - name: "Get eksctl bin"
