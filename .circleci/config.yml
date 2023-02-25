@@ -205,6 +205,8 @@ workflows:
         #    branches:
         #      only: [ master ]
       - deploy-infrastructure:
+          requires:
+            - upload-docker  
      #     filters:
      #       branches:
      #         only: [ master ]
@@ -218,6 +220,7 @@ workflows:
      # - deploy-docker:
      #     requires:
      #       - configure-cluster
+
 
 
 
