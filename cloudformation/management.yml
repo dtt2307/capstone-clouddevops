@@ -9,7 +9,7 @@ Parameters:
     Type: String
   SSHKeyName:
     Description: SSH key for management access
-    Default: udacity
+    Default: MyUdacityKey
     Type: String
   amiImageId:
     Description: Defines the Image-ID of the OS to deploy
@@ -41,4 +41,6 @@ Resources:
           Value: !Sub ${EnvironmentName}-management1
         - Key: Project
           Value: !Ref EnvironmentName
+  
+
   
