@@ -12,4 +12,3 @@
   tasks:
     - name: Create EKS cluster      
       shell: "/usr/local/bin/eksctl create cluster --name eksctl-${ENVIRONMENT_NAME} --region=${AWS_DEFAULT_REGION}"
-      no_output_timeout: 30m
