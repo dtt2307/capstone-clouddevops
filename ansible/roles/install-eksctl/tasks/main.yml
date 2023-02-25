@@ -1,8 +1,8 @@
 ---
+---
 - name: "Install tar"
-  shell: yum install tar
+  shell: yum install tar gzip
 - name: "Get eksctl bin"
-  shell: curl --silent --location "https://github.com/weaveworks/eksctl/releases/tag/v0.131.0/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+  shell: curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
 - name: "Copy bin"
   shell: mv /tmp/eksctl /usr/local/bin
-
