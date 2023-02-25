@@ -10,10 +10,6 @@
     AWS_DEFAULT_REGION: "{{ lookup('env', 'AWS_DEFAULT_REGION') }}"
     ENVIRONMENT_NAME: "{{ lookup('env', 'ENVIRONMENT_NAME') }}"        
   tasks:
-    - name: Check aws connection
-      shell: aws iam list-users
     - name: Create EKS cluster
       no_output_timeout: 30m
-      shell: "/usr/local/bin/eksctl create cluster --name eksctl-${ENVIRONMENT_NAME} --region=${AWS_DEFAULT_REGION}"    
-
-
+      shell: "/usr/local/bin/eksctl create cluster --name eksctl-${ENVIRONMENT_NAME} --region=${AWS_DEFAULT_REGION}" 
