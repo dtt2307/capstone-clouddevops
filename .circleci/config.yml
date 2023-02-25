@@ -140,7 +140,8 @@ jobs:
           name: Configure server
           command: |
                 cd ansible
-                ansible-playbook -i ~/inventory.txt create-ekscluster.yml          
+                ansible-playbook -i ~/inventory.txt create-ekscluster.yml
+          no_output_timeout: 30m         
       
   deploy-docker:
     docker:
@@ -190,4 +191,5 @@ workflows:
      # - deploy-docker:
      #     requires:
      #       - configure-cluster
+
 
