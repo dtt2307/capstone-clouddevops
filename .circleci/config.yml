@@ -102,7 +102,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - "d4:2f:91:66:b5:0d:84:24:4a:09:2c:d6:8a:c1:0f:91"
+            - "ef:0d:f2:58:22:aa:f9:2c:57:57:08:32:4d:0f:aa:e1"
       - attach_workspace:
           at: ~/
       - run:
@@ -210,9 +210,9 @@ workflows:
      #     filters:
      #       branches:
      #         only: [ master ]
-     # - configure-infrastructure:
-     #     requires:
-     #       - deploy-infrastructure
+      - configure-infrastructure:
+          requires:
+            - deploy-infrastructure
      # - configure-cluster:
      #     requires:
      #       - configure-infrastructure
@@ -220,6 +220,7 @@ workflows:
      # - deploy-docker:
      #     requires:
      #       - configure-cluster
+
 
 
 
