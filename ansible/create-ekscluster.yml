@@ -3,7 +3,6 @@
   hosts: management
   user: ec2-user
   gather_facts: false
-  become: yes
   vars:
     AWS_ACCESS_KEY_ID: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
     AWS_SECRET_ACCESS_KEY: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
@@ -11,5 +10,4 @@
     ENVIRONMENT_NAME: "{{ lookup('env', 'ENVIRONMENT_NAME') }}"    
   tasks:
     - name: Create EKS cluster
-      shell: "eksctl create cluster --name eksctl-${ENVIRONMENT_NAME} --region=${AWS_DEFAULT_REGION}"    
-
+      shell: "eksctl create cluster --name eksctl-${ENVIRONMENT_NAME} --region=${AWS_DEFAULT_REGION}"
