@@ -6,8 +6,10 @@
   become: yes
   vars:
     ENVIRONMENT_NAME: "{{ lookup('env', 'ENVIRONMENT_NAME') }}"
+    ENVIRONMENT_NAME: "{{ lookup('env', 'CIRCLE_WORKFLOW_ID') }}"
   roles:
     - deployment
-    - services
+    #- services
+
 
 
