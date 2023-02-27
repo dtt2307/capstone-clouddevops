@@ -120,8 +120,7 @@ jobs:
                 cat ~/inventory.txt
                 cd ansible
                 ansible-playbook -i ~/inventory.txt configure-server.yml
-              fi
-
+            fi
   create-ekscluster:
     docker:
       - image: python:3.7-alpine3.11
@@ -141,7 +140,56 @@ jobs:
           command: |
                 cd ansible
                 ansible-playbook -i ~/inventory.txt create-ekscluster.yml
-          no_output_timeout: 30m         
+          no_output_timeout: 30m
+  configure-cluster:
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "ef:0d:f2:58:22:aa:f9:2c:57:57:08:32:4d:0f:aa:e1"
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update ansible
+      - run:
+          name: Configure server
+          command: |
+            if grep -q "No changes to deploy" ~/checkIfDeployed.txt
+              then
+                cat ~/inventory.txt
+                echo "Our management instances are already configured."
+              else
+                cat ~/inventory.txt
+                cd ansible
+                ansible-playbook -i ~/inventory.txt configure-cluster.yml
+              fi
+      - run:
+          name: Wait for LoadBalancer's domain to become reachable
+          command: |
+            if grep -q "No changes to deploy" ~/checkIfDeployed.txt
+              then
+                cat ~/inventory.txt
+                echo "Our management instances are already configured."
+              else
+                cat ~/inventory.txt
+                echo "Wait 60 seconds..."
+                sleep 60
+              fi
+      - run:
+          name: Display the LoadBalancer's DNS name
+          command: |
+            cat ~/inventory.txt
+            cd ansible
+            ansible-playbook -i ~/inventory.txt save-elb-dns.yml
+            cat ~/elb_dns.txt
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - elb_dns.txt
       
   deploy-docker:
     docker:
@@ -150,7 +198,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - "d4:2f:91:66:b5:0d:84:24:4a:09:2c:d6:8a:c1:0f:91"
+            - "ef:0d:f2:58:22:aa:f9:2c:57:57:08:32:4d:0f:aa:e1"
       - attach_workspace:
           at: ~/
       - run:
@@ -188,8 +236,12 @@ workflows:
           requires:
             - configure-infrastructure
      #       - upload-docker
+      - configure-cluster:
+          requires:
+             - create-ekscluster
      # - deploy-docker:
      #     requires:
      #       - configure-cluster
+
 
 
