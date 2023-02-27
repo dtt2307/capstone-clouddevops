@@ -165,7 +165,7 @@ jobs:
                 cat ~/inventory.txt
                 cd ansible
                 ansible-playbook -i ~/inventory.txt configure-cluster.yml
-              fi
+            fi
      - run:
          name: Wait for LoadBalancer's domain to become reachable
          command: |
@@ -177,7 +177,7 @@ jobs:
                 cat ~/inventory.txt
                 echo "Wait 60 seconds..."
                 sleep 60
-              fi
+            fi
       - run:
           name: Display the LoadBalancer's DNS name
           command: |
@@ -240,7 +240,7 @@ workflows:
              - create-ekscluster
       - deploy-docker:
           requires:
-             - configure-clusterr
+             - configure-cluster
 
 
 
