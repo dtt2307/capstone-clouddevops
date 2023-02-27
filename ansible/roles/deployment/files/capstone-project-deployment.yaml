@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: capstone-app
-          image: dtt2307/capstone-finalproject
+          image: dtt2307/capstone-finalproject:{{ CIRCLE_WORKFLOW_ID }}
           ports:
             - containerPort: 80
