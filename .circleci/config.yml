@@ -167,29 +167,29 @@ jobs:
                 cd ansible
                 ansible-playbook -i ~/inventory.txt configure-cluster.yml
               fi
-      - run:
-          name: Wait for LoadBalancer's domain to become reachable
-          command: |
-            if grep -q "No changes to deploy" ~/checkIfDeployed.txt
-              then
-                cat ~/inventory.txt
-                echo "Our management instances are already configured."
-              else
-                cat ~/inventory.txt
-                echo "Wait 60 seconds..."
-                sleep 60
-              fi
-      - run:
-          name: Display the LoadBalancer's DNS name
-          command: |
-            cat ~/inventory.txt
-            cd ansible
-            ansible-playbook -i ~/inventory.txt save-elb-dns.yml
-            cat ~/elb_dns.txt
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - elb_dns.txt
+     # - run:
+     #    name: Wait for LoadBalancer's domain to become reachable
+     #     command: |
+     #       if grep -q "No changes to deploy" ~/checkIfDeployed.txt
+     #         then
+     #           cat ~/inventory.txt
+     #           echo "Our management instances are already configured."
+     #         else
+     #           cat ~/inventory.txt
+     #           echo "Wait 60 seconds..."
+     #           sleep 60
+     #         fi
+     # - run:
+     #     name: Display the LoadBalancer's DNS name
+     #     command: |
+     #       cat ~/inventory.txt
+     #       cd ansible
+     #       ansible-playbook -i ~/inventory.txt save-elb-dns.yml
+     #       cat ~/elb_dns.txt
+     # - persist_to_workspace:
+     #     root: ~/
+     #     paths:
+     #       - elb_dns.txt
       
   deploy-docker:
     docker:
