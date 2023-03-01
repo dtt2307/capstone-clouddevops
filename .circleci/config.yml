@@ -238,9 +238,9 @@ workflows:
       - configure-cluster:
           requires:
              - create-ekscluster
-      - deploy-docker:
-          requires:
-             - configure-cluster
+    #  - deploy-docker:
+    #      requires:
+    #         - configure-cluster
 
 
 
