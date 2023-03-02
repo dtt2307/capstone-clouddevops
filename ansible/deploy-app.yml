@@ -10,8 +10,4 @@
     - name: Update the deployment to run the latest Build
       shell: "./bin/kubectl set image deployments/capstone-deployment capstone-app=dtt2307/latest"
       args:
-        chdir: $HOME
-    - name: Check if deployment ist successful
-      shell: "./bin/kubectl rollout status deployments/capstone-deployment"
-      args:
-        chdir: $HOME
+        chdir: $HOME    
