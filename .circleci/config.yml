@@ -204,6 +204,7 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update ansible
+            apk add --update curl
       - run:
           name: Deploy newest Docker Image
           command: |
@@ -211,7 +212,16 @@ jobs:
             cd ansible
             ansible-playbook -i ~/inventory.txt deploy-app.yml
           no_output_timeout: 2m
-
+      - run:
+          name: Test Deploy
+          command: |
+             if curl $(cat elb_dns.txt) | grep -i cloud
+              then
+                exit 0
+             else
+                exit 1
+             fi
+             
 workflows:
   default:
     jobs:
@@ -219,22 +229,22 @@ workflows:
       - upload-docker:
           requires:
             - test-build
-        #  filters:
-        #    branches:
-        #      only: [ master ]
+          filters:
+            branches:
+              only: [ master ]
       - deploy-infrastructure:
           requires:
             - upload-docker  
-     #     filters:
-     #       branches:
-     #         only: [ master ]
+          filters:
+            branches:
+              only: [ master ]
       - configure-infrastructure:
           requires:
             - deploy-infrastructure
       - create-ekscluster:
           requires:
             - configure-infrastructure
-     #       - upload-docker
+            - upload-docker
       - configure-cluster:
           requires:
              - create-ekscluster
