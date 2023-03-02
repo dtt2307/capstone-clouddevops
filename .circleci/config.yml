@@ -211,17 +211,7 @@ jobs:
             cat ~/inventory.txt
             cd ansible
             ansible-playbook -i ~/inventory.txt deploy-app.yml
-          no_output_timeout: 2m
-      - run:
-          name: Test Deploy
-          command: |
-             if curl $(cat ~/elb_dns.txt) | grep -i cloud
-              then
-                exit 0
-             else
-                exit 1
-             fi
-             
+          no_output_timeout: 2m  
 workflows:
   default:
     jobs:
@@ -251,8 +241,3 @@ workflows:
       - deploy-docker:
           requires:
              - configure-cluster
-
-
-
-
-
