@@ -215,7 +215,7 @@ jobs:
       - run:
           name: Test Deploy
           command: |
-             if curl $(cat elb_dns.txt) | grep -i cloud
+             if curl $(cat ~/elb_dns.txt) | grep -i cloud
               then
                 exit 0
              else
